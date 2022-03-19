@@ -10,8 +10,15 @@ set tabsize 4
 set tabstospaces
 set zap
 set indicator
-set minibar
+#set minibar
 set casesensitive
+
+# set colors
+set titlecolor      black,green
+set statuscolor     cyan,black
+set numbercolor     blue,black
+set keycolor        magenta,black
+set functioncolor   blue
 
 # Enable and set a working backup directory
 set backup
