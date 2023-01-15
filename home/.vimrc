@@ -42,7 +42,7 @@ call plug#begin('~/.vim/autoload/plugged')
       Plug 'ryanoasis/vim-devicons'
       Plug 'yuttie/comfortable-motion.vim'
       Plug 'machakann/vim-highlightedyank'
-      Plug 'Yggdroot/indentLine'
+"      Plug 'Yggdroot/indentLine'
       Plug 'konfekt/foldtext'
       Plug 'raimondi/delimitmate'
       Plug 'tpope/vim-sensible'
