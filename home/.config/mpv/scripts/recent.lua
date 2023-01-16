@@ -17,7 +17,7 @@ local o = {
     -- Scroll wheel: Up/Down
     mouse_controls = true,
     -- Reads from config directory or an absolute path
-    log_path = "/Users/thunderthief/.cache/mpv/history.log",
+    log_path = "history.log",
     -- Date format in the log (see lua date formatting)
     date_format = "%d/%m/%y %X",
     -- Show file paths instead of media-title
