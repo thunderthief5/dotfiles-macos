@@ -15,7 +15,7 @@ call plug#begin('~/.local/share/nvim/site/autoload/plugged')
 
       "Themes
       Plug 'dracula/vim', { 'as': 'dracula' }
-      Plug 'arcticicestudio/nord-vim', { 'branch': 'develop' }
+      Plug 'arcticicestudio/nord-vim'
       Plug 'jnurmine/zenburn'
       Plug 'morhetz/gruvbox'
 
