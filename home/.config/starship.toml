@@ -64,3 +64,10 @@ modified   = "[ MOD ](bold purple)"
 staged     = '[ STAG  \($count\) ](bold cyan)'
 renamed    = "[ REN ](bold cyan)"
 deleted    = "[ DEL ](bold red)"
+
+[conda]
+format     = "[$symbol $environment](bold red)"
+
+[cmd_duration]
+format = ' took [$duration](yellow)'
+

@@ -243,8 +243,7 @@ eval "$(starship init zsh)"
 #simplefetch
 echo '
 ▀█ █▀ █░█
-█▄ ▄█ █▀█
-' | lolcat
+█▄ ▄█ █▀█' | lolcat
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
