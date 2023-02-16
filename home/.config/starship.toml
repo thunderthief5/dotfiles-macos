@@ -29,7 +29,7 @@ disabled    = true
 show_always = true
 
 [time]
-disabled    = false
+disabled    = true
 format      = '[\[$time\]](bold cyan) '
 time_format = "%H:%M"
 
@@ -71,3 +71,11 @@ format     = "[$symbol $environment](bold red)"
 [cmd_duration]
 format = ' took [$duration](yellow)'
 
+[shell]
+bash_indicator = 'BASH'
+zsh_indicator  = 'ZSH'
+fish_indicator = 'FISH'
+powershell_indicator = '_'
+unknown_indicator = 'mystery shell'
+style = 'red bold'
+disabled = false
