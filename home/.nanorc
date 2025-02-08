@@ -1,0 +1,28 @@
+#█▄░█ ▄▀█ █▄░█ █▀█
+#█░▀█ █▀█ █░▀█ █▄█
+
+set constantshow
+set linenumbers
+set autoindent
+set mouse
+set softwrap
+set tabsize 4
+set tabstospaces
+set zap
+set indicator
+set minibar
+set casesensitive
+
+# set colors
+set titlecolor      cyan,black
+set statuscolor     cyan,black
+set numbercolor     blue,black
+set keycolor        magenta,black
+set functioncolor   blue
+
+# Enable and set a working backup directory
+set backup
+set backupdir "~/.cache/nano/backups/"
+
+# Enables the syntax highlighting.
+include "/usr/local/share/nano/*.nanorc"

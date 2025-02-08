@@ -1,0 +1,82 @@
+
+# █▀ ▀█▀ ▄▀█ █▀█ █▀ █░█ █ █▀█
+# ▄█ ░█░ █▀█ █▀▄ ▄█ █▀█ █ █▀▀
+
+[line_break]
+disabled = false  #separates the prompt into two lines
+
+# Replace the "❯" symbol in the prompt with "➜"
+[character]
+#success_symbol = "[\uf053\uf054\uf053](bold green)"
+#error_symbol   = "[\uf054\uf053](bold red)"
+#vicmd_symbol   = "[\ue62b](bold blue)"
+
+success_symbol = "[](bold purple)"
+error_symbol   = "[](bold red)"
+vicmd_symbol   = "[\ue62b](bold blue)"
+
+[hostname]
+ssh_only   = true
+format     = "on [$ssh_symbol $hostname](bold italic red) "
+trim_at    = ".local"
+disabled   = false
+ssh_symbol = 'SSH'
+
+[username]
+style_user  = "bold italic cyan"
+style_root  = "bold italic red"
+format      = "[$user]($style) "
+disabled    = true
+show_always = true
+
+[time]
+disabled    = true
+format      = '[\[$time\]](bold cyan) '
+time_format = "%H:%M"
+
+[directory]
+format            = "[$path ](bold blue)[$read_only](bold red)"
+read_only         = "  "
+read_only_style   = "red"
+truncation_symbol = "…/"
+
+[git_branch]
+symbol = " "
+truncation_length = 6
+truncation_symbol = ""
+
+[git_commit]
+commit_hash_length = 4
+tag_symbol = " "
+
+[git_metrics]
+added_style = "bold blue"
+format = '[+$added]($added_style)/[-$deleted]($deleted_style) '
+
+[git_status]
+conflicted = "[ CONFLICT ](bold red)"
+ahead      = "[ AHEAD ](bold white)"
+behind     = "[ BEHIND ](bold red)"
+diverged   = "[ DIV ](bold blue)"
+up_to_date = "[ UP  ](bold white)"
+untracked  = "[ UN-T ](bold red)"
+stashed    = "[ STASH ](bold blue)"
+modified   = "[ MOD ](bold purple)"
+staged     = '[ STAG  \($count\) ](bold cyan)'
+renamed    = "[ REN ](bold cyan)"
+deleted    = "[ DEL ](bold red)"
+
+[conda]
+format     = "[$symbol $environment](bold red)"
+
+[cmd_duration]
+format = ' took [$duration](yellow)'
+
+[shell]
+bash_indicator = 'BASH'
+zsh_indicator  = 'ZSH'
+fish_indicator = 'FISH'
+powershell_indicator = '_'
+unknown_indicator = 'mystery shell'
+style = 'red bold'
+disabled = false

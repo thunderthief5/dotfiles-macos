@@ -1,0 +1,252 @@
+
+#▄▀█ █░░ ▄▀█ █▀▀ █▀█ █ ▀█▀ ▀█▀ █▄█  ThunderThief
+#█▀█ █▄▄ █▀█ █▄▄ █▀▄ █ ░█░ ░█░ ░█░  vim:fileencoding=utf-8:foldmethod=marker:ft=yaml
+
+### Simplified config. Refer alacritty.yml.bak for full commands
+
+# {{{ Window Customization
+
+window:
+  dimensions:
+    columns: 100
+    lines: 45
+  padding:
+    x: 25
+    y: 25
+  dynamic_padding: true
+  decorations: transparent
+  opacity: 1.00
+  dynamic_title: true
+
+scrolling:
+  history: 10000
+  multiplier: 3
+
+# }}}
+
+# {{{ Font Customization
+
+font:
+  normal:
+    family: mononoki Nerd Font Mono
+    style: Regular
+  bold:
+    family: mononoki Nerd Font Mono
+    style: Bold
+  italic:
+    family: mononoki Nerd Font Mono
+    style: Italic
+  size: 17
+  offset:
+    x: 0
+    y: 0
+  glyph_offset:
+    x: 0
+    y: 0
+      #  use_thin_strokes: false
+  debug:
+    persistent_logging: false
+draw_bold_text_with_bright_colors: true
+
+# }}}
+
+###################################
+####Color Schemes##################
+###################################
+
+# {{{ Base 16 Default Dark
+
+#colors:
+#  # Default colors
+#  primary:
+#    background: '0x181818'
+#    foreground: '0xd8d8d8'
+#
+#  # Normal colors
+#  normal:
+#    black:   '0x181818'
+#    red:     '0xab4642'
+#    green:   '0xa1b56c'
+#    yellow:  '0xf7ca88'
+#    blue:    '0x7cafc2'
+#    magenta: '0xba8baf'
+#    cyan:    '0x86c1b9'
+#    white:   '0xd8d8d8'
+#
+#  # Bright colors
+#  bright:
+#    black:   '0x585858'
+#    red:     '0xab4642'
+#    green:   '0xa1b56c'
+#    yellow:  '0xf7ca88'
+#    blue:    '0x7cafc2'
+#    magenta: '0xba8baf'
+#    cyan:    '0x86c1b9'
+#    white:   '0xf8f8f8'
+#
+#  indexed_colors:
+#    - { index: 16, color: '0xdc9656' }
+#    - { index: 17, color: '0xa16946' }
+#    - { index: 18, color: '0x282828' }
+#    - { index: 19, color: '0x383838' }
+#    - { index: 20, color: '0xb8b8b8' }
+#    - { index: 21, color: '0xe8e8e8' }
+#
+#  selection:
+#    text: '0xffffff'
+#    background: '0xdc3232'
+#    white:   '0xffffff'
+
+# }}}
+
+# {{{ Dracula
+
+colors:
+  # Default colors
+  primary:
+    background: '0x1b1b1b'   # dracula default '0x282a36'
+    foreground: '0xf8f8f2'
+
+  # Cursor colors
+  cursor:
+    text: '0x44475a'
+    cursor: '0xf8f8f2'
+
+  selection:
+    text: '0xf8f8f2'
+    background: '0x44475a'
+
+  # Normal colors
+  normal:
+    black:   '0x000000'
+    red:     '0xff5555'
+    green:   '0x50fa7b'
+    yellow:  '0xf1fa8c'
+    blue:    '0xbd93f9'
+    magenta: '0xff79c6'
+    cyan:    '0x8be9fd'
+    white:   '0xbfbfbf'
+
+  # Bright colors
+  bright:
+    black:   '0x4d4d4d'
+    red:     '0xff6e67'
+    green:   '0x5af78e'
+    yellow:  '0xf4f99d'
+    blue:    '0xcaa9fa'
+    magenta: '0xff92d0'
+    cyan:    '0x9aedfe'
+    white:   '0xe6e6e6'
+
+  # Dim colors
+  dim:
+    black:   '0x14151b'
+    red:     '0xff2222'
+    green:   '0x1ef956'
+    yellow:  '0xebf85b'
+    blue:    '0x4d5b86'
+    magenta: '0xff46b0'
+    cyan:    '0x59dffc'
+    white:   '0xe6e6d1'
+
+# }}}
+
+# {{{ Nord Theme
+
+#colors:
+#  primary:
+#    background: '#2e3440'
+#    foreground: '#d8dee9'
+#    dim_foreground: '#a5abb6'
+#  cursor:
+#    text: '#2e3440'
+#    cursor: '#d8dee9'
+#  vi_mode_cursor:
+#    text: '#2e3440'
+#    cursor: '#d8dee9'
+#  selection:
+#    text: CellForeground
+#    background: '#4c566a'
+#  search:
+#    matches:
+#      foreground: CellBackground
+#      background: '#88c0d0'
+#    bar:
+#      background: '#434c5e'
+#      foreground: '#d8dee9'
+#  normal:
+#    black: '#3b4252'
+#    red: '#bf616a'
+#    green: '#a3be8c'
+#    yellow: '#ebcb8b'
+#    blue: '#81a1c1'
+#    magenta: '#b48ead'
+#    cyan: '#88c0d0'
+#    white: '#e5e9f0'
+#  bright:
+#    black: '#4c566a'
+#    red: '#bf616a'
+#    green: '#a3be8c'
+#    yellow: '#ebcb8b'
+#    blue: '#81a1c1'
+#    magenta: '#b48ead'
+#    cyan: '#8fbcbb'
+#    white: '#eceff4'
+#  dim:
+#    black: '#373e4d'
+#    red: '#94545d'
+#    green: '#809575'
+#    yellow: '#b29e75'
+#    blue: '#68809a'
+#    magenta: '#8c738c'
+#    cyan: '#6d96a5'
+#    white: '#aeb3bb'
+
+# }}}
+
+# {{{ Bash
+
+  #colors:
+  #  # Default colors
+  #  primary:
+  #    background: '0x0a0b0c'
+  #    foreground: '0xeceff4'
+  #
+  #  # Normal colors
+  #  normal:
+  #    black:   '0x292d3e'
+  #    red:     '0xf07178'
+  #    green:   '0xc3e88d'
+  #    yellow:  '0xffcb6b'
+  #    blue:    '0x82aaff'
+  #    magenta: '0xc792ea'
+  #    cyan:    '0x60adec'
+  #    white:   '0xabb2bf'
+  #
+  #  # Bright colors
+  #  bright:
+  #    black:   '0x959dcb'
+  #    red:     '0xf07178'
+  #    green:   '0xc3e88d'
+  #    yellow:  '0xff5572'
+  #    blue:    '0x82aaff'
+  #    magenta: '0xffcb6b'
+  #    cyan:    '0x676e95'
+  #    white:   '0xfffefe'
+
+# }}}
+
+###################################
+# {{{ Misc Settings
+cursor:
+  style: Block
+  unfocused_hollow: true
+
+key_bindings:
+  - { key: N, mods: Control, action: SpawnNewInstance }
+
+    # Set the shell 
+#shell:
+#  program: /usr/bin/fish
+
+# }}}
