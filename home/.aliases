@@ -2,23 +2,37 @@
 # ▄▀█ █░░ █ ▄▀█ █▀ █▀▀ █▀ ThunderThief
 # █▀█ █▄▄ █ █▀█ ▄█ ██▄ ▄█ vim:fileencoding=utf-8:foldmethod=marker:ft=sh
 
-# List all aliases
-alias list-aliases='cat .bash_aliases | grep alias'
+##############################
+# General / Utility Aliases {{{ 
+##############################
 
-# Changing "ls" to "exa"  Need to install exa
-alias la='eza -al --color=always --group-directories-first' # my preferred listing
-alias ls='eza -a --color=always --group-directories-first'  # all files and dirs
-alias ll='eza -l --color=always --group-directories-first'  # long format
-alias lt='eza -aT --color=always --group-directories-first' # tree listing
+alias list-aliases='cat .bash_aliases | grep alias'
+alias :q='exit'
+alias :Q='exit'
+alias :x='exit'
+alias cd..='cd ..'
+alias clr='clear'
+
+# }}}
+
+#######################
+# File Operations {{{
+#######################
+
+# Replace "ls" with "eza"
+alias la='eza -al --color=always --group-directories-first'
+alias ls='eza -a --color=always --group-directories-first'
+alias ll='eza -l --color=always --group-directories-first'
+alias lt='eza -aT --color=always --group-directories-first'
 alias l.='eza -a | egrep "^\."'
 
-# Colorize grep output (good for log files)
+# Colorize grep output
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 
-# confirm before overwriting something
-alias cp="cp -iv"
+# Confirm before overwrite
+alias cp='cp -iv'
 alias mv='mv -iv'
 alias rm='rm -iv'
 alias ln='ln -iv'
@@ -26,53 +40,81 @@ alias ln='ln -iv'
 # mkdir verbose
 alias mkdir='mkdir -v'
 
-# disk usage
+# Disk usage
 alias usage='du -ch | grep total'
 
-# Make Bash error tolerant
-alias :q=' exit'
-alias :Q=' exit'
-alias :x=' exit'
-alias cd..='cd ..'
-alias clr='clear'
+# }}}
 
-# vim and nvim
-#alias nvim='nvim -u $HOME/.vimrc'
-alias svim='sudo -E vim'
+###################################
+# Text Art & Terminal Visuals {{{
+###################################
 
-# Gnu-stow
-alias stow-dotfiles='cd dotfiles && stow -v --adopt --restow home && cd'
-
-# youtube-dl
-alias yta-aac="youtube-dl --extract-audio --audio-format aac "
-alias yta-best="youtube-dl --extract-audio --audio-format best "
-alias yta-flac="youtube-dl --extract-audio --audio-format flac "
-alias yta-m4a="youtube-dl --extract-audio --audio-format m4a "
-alias yta-mp3="youtube-dl --extract-audio --audio-format mp3 "
-alias yta-opus="youtube-dl --extract-audio --audio-format opus "
-alias yta-vorbis="youtube-dl --extract-audio --audio-format vorbis "
-alias yta-wav="youtube-dl --extract-audio --audio-format wav "
-alias ytv-best="youtube-dl -f bestvideo+bestaudio "
-
-# figlet custom fonts
+# Figlet with custom fonts
 alias figlet-d='figlet -d /home/thunderthief/Downloads/Misc/figlet-fonts-master/'
 alias figlet-ANSI='figlet -d /home/thunderthief/Downloads/Misc/figlet-fonts-master -f ANSI\ Shadow'
 alias figlet-Chunky='figlet -f /home/thunderthief/Downloads/Misc/figlet-fonts-master/Chunky.flf'
 alias figlet-Graffiti='figlet -f /home/thunderthief/Downloads/Misc/figlet-fonts-master/Graffiti.flf'
 
-# Unimatrix
+# Unimatrix effect
 alias omnitrix='unimatrix -lgkc -f -a -n'
 
-# simplified Neofetch
+# Neofetch variations
 alias simplefetch='neofetch --off --disable theme icons resolution model cpu gpu memory term wm_theme uptime disk memory battery --os_arch off --color_blocks off'
+alias pubfetch='neofetch --ascii ~/Documents/scripts/pubglogo.txt --ascii_colors 2 3 1 1 5 4'
+
+# macchina minimal fetch
+alias macchina-min='macchina --no-ascii --box-title UNIX -H Resolution Packages Terminal Uptime Processor ProcessorUsage Memory BAttery LocalIP'
+
+# }}}
+
+############################
+# Vim / Editor Related {{{
+############################
+
+alias svim='sudo -E vim'
+#alias nvim='nvim -u $HOME/.vimrc'
+
+# }}}
+
+#####################
+# Dotfiles / Stow {{{
+#####################
+
+alias stow-dotfiles='cd dotfiles && stow -v --adopt --restow home && cd'
+
+# }}}
+
+##########################
+# Youtube-dl Aliases {{{
+##########################
+
+alias yta-aac="youtube-dl --extract-audio --audio-format aac"
+alias yta-best="youtube-dl --extract-audio --audio-format best"
+alias yta-flac="youtube-dl --extract-audio --audio-format flac"
+alias yta-m4a="youtube-dl --extract-audio --audio-format m4a"
+alias yta-mp3="youtube-dl --extract-audio --audio-format mp3"
+alias yta-opus="youtube-dl --extract-audio --audio-format opus"
+alias yta-vorbis="youtube-dl --extract-audio --audio-format vorbis"
+alias yta-wav="youtube-dl --extract-audio --audio-format wav"
+alias ytv-best="youtube-dl -f bestvideo+bestaudio"
+
+# }}}
+
+#########################################
+# Rofi / Polybar / Desktop UX Scripts {{{
+#########################################
+
 alias rofifetch='~/.config/rofi/scripts/rofifetch'
 alias dmenubar='~/.config/rofi/scripts/dmenubar'
-
-# restart polybar for bspwm and openbox
 alias bspbar='cd .config/polybar/bspwm/ && ./launch.sh &> /dev/null && cd'
 alias opbar='cd .config/polybar/openbox/ && ./launch.sh &> /dev/null && cd'
 
-##### Anaconda   ##################
+# }}}
+
+##################
+# Conda {{{
+##################
+
 alias conin='conda install'
 alias conup='conda update conda && conda update --all'
 alias conqr='conda search'
@@ -82,9 +124,12 @@ alias coninfo='conda info'
 alias conact='conda activate'
 alias condeact='conda deactivate'
 
-##### MacOS Only ##################
+# }}}
 
-# HomeBew aliases
+##################
+# Homebrew {{{ 
+##################
+
 alias brin='brew install'
 alias brup='brew update && brew upgrade'
 alias brqr='brew search'
@@ -92,61 +137,88 @@ alias brrm='brew uninstall'
 alias brcl='brew cleanup'
 alias brdr='brew doctor'
 alias brinfo='brew info'
-
 alias br-dump='brew bundle dump --file=~/.Brewfile'
 alias br-bundle='brew bundle --file=~/.Brewfile'
 
-##### Linux Only ##################
+# }}}
 
-# Void Linux XBPS aliases
-alias xbpi='sudo xbps-install -S'     #install
-alias xbpu='sudo xbps-install -Su'    #update
-alias xbpq='sudo xbps-query -Rs'      #search
-alias xbpr='sudo xbps-remove -R'      #remove (along with dependencies)
-alias xbpo='sudo xbps-remove -o'      #remove orphans
+##################
+# XBPS (Void) {{{
+##################
 
-# Arch Linux PacMan aliases
-alias paci='sudo pacman -S'                                 # install
-alias pacu='sudo pacman -Syu'                               # update
-alias pacq='pacman -Ss'                                     # search
-alias pacr='sudo pacman -Rsu'                               # remove (along with dependencies)
-alias paco='sudo pacman -Qtdq | pacman -Rns -'              # remove orphans
-alias pac-dump='pacman -Qqen > Pacfile'                     # dump list of installed pkgs to Pacfile (excl. aur pkgs)
-alias pac-bundle='xargs -a Pacfile sudo pacman -S --needed' # install uninstalled packages using Pacfile
+alias xbpi='sudo xbps-install -S'
+alias xbpu='sudo xbps-install -Su'
+alias xbpq='sudo xbps-query -Rs'
+alias xbpr='sudo xbps-remove -R'
+alias xbpo='sudo xbps-remove -o'
+
+# }}}
+
+##################
+# Pacman (Arch) {{{
+##################
+
+alias paci='sudo pacman -S'
+alias pacu='sudo pacman -Syu'
+alias pacq='pacman -Ss'
+alias pacr='sudo pacman -Rsu'
+alias paco='sudo pacman -Qtdq | pacman -Rns -'
+alias pac-dump='pacman -Qqen > Pacfile'
+alias pac-bundle='xargs -a Pacfile sudo pacman -S --needed'
+
+# }}}
+
+#######################
+# Flatpak {{{
+#######################
 
 alias flat-dump='flatpak list --app | cut -f2 > Flatfile'
 alias flat-bundle='xargs -a Flatfile flatpak install'
 alias flat-list='flatpak list --app --columns=name,application,runtime'
 
-# get fastest Arch mirrors with reflector
+# }}}
+
+##################################
+# Arch Mirror Optimization {{{
+##################################
+
 alias mirrorx='sudo reflector --age 6 --latest 20 --fastest 20 --threads 20 --sort rate --protocol https --save /etc/pacman.d/mirrorlist'
 
-# Replace sudo with doas
-#alias sudo='doas'
+# }}}
 
-# Systemctl
+##################
+# Systemctl {{{
+##################
+
 alias sys-status='systemctl status'
 alias sys-enable='systemctl enable'
 alias sys-disable='systemctl disable'
 alias sys-start='systemctl start'
 alias sys-stop='systemctl stop'
 
-# Open files from terminal
-alias open='xdg-open &>/dev/null'
+# }}}
 
-# dump and load gnome-terminal-profiles
+##############################
+# Miscellaneous Custom Apps {{{
+##############################
+
+alias open='xdg-open &>/dev/null'
 alias gt-dump='dconf dump /org/gnome/terminal/legacy/profiles:/ > .gnome-terminal-profiles.dconf'
 alias gt-load='dconf load /org/gnome/terminal/legacy/profiles:/ < .gnome-terminal-profiles.dconf'
-
-# custom apps and commands
 alias jellyfin='cd .local/share/applications/ && gtk-launch jellyfin.desktop && exit'
-alias pubfetch='neofetch --ascii ~/Documents/scripts/pubglogo.txt --ascii_colors 2 3 1 1 5 4'
 alias tor='cd Downloads/Apps/tor-browser_en-US/ && ./start-tor-browser.desktop && exit'
 alias turbo-on='echo 0 | sudo tee /sys/devices/system/cpu/intel_pstate/no_turbo'
 alias turbo-off='echo 1 | sudo tee /sys/devices/system/cpu/intel_pstate/no_turbo'
 
-# Rsync Backup
+# Replace sudo with doas if needed
+# alias sudo='doas'
+
+# }}}
+
+##############################
+# Rsync Backup {{{
+##############################
 #alias arch-backup='rsync -av --delete --exclude-from '.exclude-list.txt' /home/thunderthief/ /mnt/AXIS/home-backup/Arch/'
 #alias debian-backup='rsync -av --delete --exclude-from '.exclude-list.txt' /home/thunderthief/ /mnt/AXIS/home-backup/Debian/'
-# macchina fetch
-alias macchina-min='macchina --no-ascii --box-title UNIX -H Resolution Packages Terminal Uptime Processor ProcessorUsage Memory BAttery LocalIP'
+
+# }}}

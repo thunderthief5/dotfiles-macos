@@ -84,6 +84,13 @@ call plug#begin('~/.vim/autoload/plugged')
 
       Plug 'lervag/vimtex'
       "A modern Vim and Neovim filetype and syntax plugin for LaTeX files
+
+      Plug 'tpope/vim-fugitive'
+      "fugitive.vim: A Git wrapper so awesome, it should be illegal
+
+      Plug 'airblade/vim-gitgutter'
+      "A Vim plugin which shows a git diff in the sign column
+
 call plug#end()
 
 " }}}
@@ -423,10 +430,22 @@ noremap <Leader>h :<C-u>split<CR>
 noremap <Leader>v :<C-u>vsplit<CR>
 
 " Use ctrl + hjkl to resize windows
-noremap <silent> <C-Left> :vertical resize +3<CR>
-noremap <silent> <C-Right> :vertical resize -3<CR>
-noremap <silent> <C-Up> :resize +3<CR>
-noremap <silent> <C-Down> :resize -3<CR>
+"noremap <silent> <C-Left> :vertical resize +3<CR>
+"noremap <silent> <C-Right> :vertical resize -3<CR>
+"noremap <silent> <C-Up> :resize +3<CR>
+"noremap <silent> <C-Down> :resize -3<CR>
+
+" Use Alt + hjkl to resize windows (works on macOS and Linux)
+noremap <silent> <M-h> :vertical resize +3<CR>
+noremap <silent> <M-l> :vertical resize -3<CR>
+noremap <silent> <M-k> :resize +3<CR>
+noremap <silent> <M-j> :resize -3<CR>
+
+" Alternatively, use Leader + arrow keys
+noremap <silent> <Leader><Left> :vertical resize +3<CR>
+noremap <silent> <Leader><Right> :vertical resize -3<CR>
+noremap <silent> <Leader><Up> :resize +3<CR>
+noremap <silent> <Leader><Down> :resize -3<CR>
 
 " I hate escape more than anything else
 inoremap jk <Esc>
@@ -477,6 +496,7 @@ nnoremap <silent> <leader>l :set relativenumber! <bar> set nu!<CR>
 
 " NerdTree
 nnoremap <leader>n :NERDTreeToggle<CR>
+nnoremap <leader>r :NERDTreeFind<cr>
 
 " Startify
 nnoremap <leader>sv :vsp <bar> Startify<CR>
@@ -488,4 +508,3 @@ noremap <silent> <ScrollWheelUp>   :call comfortable_motion#flick(-40)<CR>
 
 " }}}
 """""""""""""""""""""""""""""""""""""""""""""""""
-

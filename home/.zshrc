@@ -4,260 +4,235 @@
 
 #### {{{ Environment, Path and Aliases
 
-if [[ ! $TERM == *rxvt*  ]]; then
-  export TERM="xterm-256color"              # getting proper colors
+if [[ ! $TERM == *rxvt* ]]; then
+  export TERM="xterm-256color"  # Proper color support
 fi
+
 export EDITOR="vim"
 export VISUAL="vim"
 export BAT_THEME="base16"
 
-bindkey -e                                # emacs keybindings
+bindkey -e  # Emacs keybindings
 
-# PATH
-if [ -d "$HOME/.bin" ] ;
-  then PATH="$HOME/.bin:$PATH"
-fi
+# PATH Configuration
+for dir in "$HOME/.bin" "$HOME/.local/bin" "/usr/local/sbin"; do
+  [ -d "$dir" ] && PATH="$dir:$PATH"
+done
 
-# create .local/bin if it doesnt exist
-if ! [[ -d "$HOME/.local/bin" ]]; then
-mkdir -p $HOME/.local/bin
-fi
+# Ensure ~/.local/bin exists
+mkdir -p "$HOME/.local/bin"
 
-if [ -d "$HOME/.local/bin" ] ;
-  then PATH="$HOME/.local/bin:$PATH"
-fi
+# pkgfile Arch Linux integration
+command -v pkgfile &>/dev/null && source /usr/share/doc/pkgfile/command-not-found.zsh
 
-if [[ $OSTYPE == darwin* ]]; then
-  export PATH="/usr/local/sbin:$PATH"     #for homebrew
-fi
+# Load aliases if available
+[ -f ~/.aliases ] && source ~/.aliases
 
-# pkgfile arch
-if command -v pkgfile 2>&1 >/dev/null; then
-  source /usr/share/doc/pkgfile/command-not-found.zsh
-fi
+# Use Neovim if installed (commented out)
+# command -v nvim &>/dev/null && alias vim='nvim'
 
-# .aliases
-if [ -f ~/.aliases ]; then
-  . ~/.aliases
-fi
+# Debian-specific alias for bat
+command -v batcat &>/dev/null && alias bat='batcat'
 
-# vim: Defaults to Neovim if exists
-#if command -v nvim 2>&1 >/dev/null; then
-#  alias vim='nvim'
-#fi
-
-# batcat to bat in Debian
-if command -v batcat 2>&1 >/dev/null; then
-  alias bat='batcat'
-fi
-
-if command -v exa 2>&1 >/dev/null; then
-  alias la='exa -al --color=always --group-directories-first' # my preferred listing
-  alias ls='exa -a --color=always --group-directories-first'  # all files and dirs
-  alias ll='exa -l --color=always --group-directories-first'  # long format
-  alias lt='exa -aT --color=always --group-directories-first' # tree listing
+# exa as replacement for ls
+if command -v exa &>/dev/null; then
+  alias la='exa -al --color=always --group-directories-first'
+  alias ls='exa -a --color=always --group-directories-first'
+  alias ll='exa -l --color=always --group-directories-first'
+  alias lt='exa -aT --color=always --group-directories-first'
   alias l.='exa -a | egrep "^\."'
 fi
 
-if command -v doas 2>&1 >/dev/null; then
-  alias sudo='doas'
-  alias svim='doas vim'
-fi
+# Use doas instead of sudo if available
+command -v doas &>/dev/null && alias sudo='doas' && alias svim='doas vim'
 
 #### }}}
 
-#### {{{ History control
+#### {{{ History Control
 
-# History file settings
-HISTSIZE=100000
-SAVEHIST=$HISTSIZE
-
-export HISTFILE=~/.bash_history
+export HISTFILE=~/.zsh_history
+export HISTSIZE=100000
+export SAVEHIST=$HISTSIZE
 export HISTTIMEFORMAT="[%F %T] "
 
-setopt hist_ignore_all_dups # remove older duplicate entries from history
-setopt hist_reduce_blanks   # remove superfluous blanks from history items
-setopt inc_append_history   # save history entries as soon as they are entered
-setopt share_history        # share history between different instances of the shell
-setopt auto_cd              # cd by typing directory name if it's not a command
-setopt correct_all          # autocorrect commands
-setopt auto_list            # automatically list choices on ambiguous completion
-setopt auto_menu            # automatically use menu completion
-setopt always_to_end        # move cursor to end if word had one match
+setopt hist_ignore_all_dups  # Remove older duplicate entries
+setopt hist_reduce_blanks    # Remove redundant spaces
+setopt inc_append_history    # Save entries as soon as they are entered
+setopt share_history         # Share history between shell instances
+setopt auto_cd               # `cd` by typing the directory name
+setopt correct_all           # Autocorrect commands
+setopt auto_list             # List choices on ambiguous completion
+setopt auto_menu             # Use menu completion
+setopt always_to_end         # Move cursor to the end if word has one match
 
-# If not running interactively, don't do anything
+# Ensure the script runs only in interactive shells
 case $- in
-    *i*) ;;
-      *) return;;
+  *i*) ;;
+  *) return ;;
 esac
 
-# Basic auto/tab complete:
-zstyle ':completion:*' menu select                                          # select completions with arrow keys
-zstyle ':completion:*' group-name ''                                        # group results by category
-zstyle ':completion:::::' completer _expand _complete _ignored _approximate # enable approximate matches for completion
+# Basic auto/tab completion
+zstyle ':completion:*' menu select
+zstyle ':completion:*' group-name ''
+zstyle ':completion:::::' completer _expand _complete _ignored _approximate
 
-# regenerate .zcompdump only once a day
+# Regenerate .zcompdump only once per day
 autoload -Uz compinit
 for dump in ~/.zcompdump(N.mh+24); do
   compinit
 done
 compinit -C
 
-_comp_options+=(globdots)		# Include hidden files.
+_comp_options+=(globdots)  # Include hidden files in completion
+
+#### }}}
+
+#### {{{ Environment Variables
+
+export DYLD_LIBRARY_PATH="$HOME/.local/lib"
+
+# GNU Scientific Library (GSL)
+export GSL_DIR="/opt/homebrew/opt/gsl"
+export PATH="$GSL_DIR/bin:$PATH"
+export LDFLAGS="-L$GSL_DIR/lib"
+export CPPFLAGS="-I$GSL_DIR/include"
+export PKG_CONFIG_PATH="$GSL_DIR/lib/pkgconfig"
+
+#### }}}
+
+#### {{{ Compiler Settings
+
+# Uncomment these if you need GCC and GFortran
+# export CC=/opt/homebrew/bin/gcc-12
+# export CXX=/opt/homebrew/bin/g++-12
+# export FC=/opt/homebrew/bin/gfortran-12
 
 #### }}}
 
 #### {{{ Functions
 
-### change terminal title
-function precmd () {
+# Set terminal title
+function precmd() {
   echo -ne "\033]0;$USER @ $(pwd | sed -e "s;^$HOME;~;")\a"
 }
 
-# create a directory and cd into it
-mkcd()
-{
- mkdir -p $1 && cd $1
+# Create a directory and immediately cd into it
+mkcd() {
+  [[ -z "$1" ]] && echo "Usage: mkcd <directory-name>" && return 1
+  mkdir -p "$1" && cd "$1" || return 1
 }
 
-# function to use cd and ls in one command
+# Change directory and list files
 cdls() {
-  local dir="$1"
-  local dir="${dir:=$HOME}"
-  if [[ -d "$dir" ]]; then
-          cd "$dir" >/dev/null; ls
-  else
-          echo "bash: cdls: $dir: Directory not found"
-  fi
+  local dir="${1:-$HOME}"
+  [[ -d "$dir" ]] && cd "$dir" >/dev/null && ls || echo "zsh: cdls: $dir: Directory not found"
 }
 
-# function to use cd and dust in one command
+# Change directory and show disk usage (dust required)
 cdust() {
-  local dir="$1"
-  local dir="${dir:=$HOME}"
-  if [[ -d "$dir" ]]; then
-          cd "$dir" >/dev/null; dust -brd1
-  else
-          echo "bash: cdust: $dir: Directory not found"
-  fi
+  local dir="${1:-$HOME}"
+  [[ -d "$dir" ]] && cd "$dir" >/dev/null && dust -brd1 || echo "zsh: cdust: $dir: Directory not found"
 }
 
-# function for creating a backup file
+# Backup a file
 bak() {
-if [ "$1" = "" ]; then
-   echo "File name required. Aborting."
-   exit 1
-fi
-cp "$1" "$1.bak"
-echo File backed up to: $1.bak
+  [[ -z "$1" ]] && echo "File name required. Aborting." && return 1
+  cp "$1" "$1.bak"
+  echo "File backed up to: $1.bak"
 }
 
-# Archive extraction
-# usage: ex <file>
-ex ()
-{
-  if [ -f $1 ] ; then
-    case $1 in
-      *.tar.bz2)   tar xjf $1   ;;
-      *.tar.gz)    tar xzf $1   ;;
-      *.bz2)       bunzip2 $1   ;;
-      *.rar)       unrar x $1   ;;
-      *.gz)        gunzip $1    ;;
-      *.tar)       tar xf $1    ;;
-      *.tbz2)      tar xjf $1   ;;
-      *.tgz)       tar xzf $1   ;;
-      *.zip)       unzip $1     ;;
-      *.Z)         uncompress $1;;
-      *.7z)        7z x $1      ;;
-      *.deb)       ar x $1      ;;
-      *.tar.xz)    tar xf $1    ;;
-      *.tar.zst)   unzstd $1    ;;
-      *)           echo "'$1' cannot be extracted via ex()" ;;
-    esac
-  else
-    echo "'$1' is not a valid file"
-  fi
+# Archive extraction function
+ex() {
+  [[ ! -f "$1" ]] && echo "'$1' is not a valid file" && return 1
+
+  shopt -s nocasematch
+  case "$1" in
+    *.tar.bz2|*.tbz2) tar xjf "$1" ;;
+    *.tar.gz|*.tgz)   tar xzf "$1" ;;
+    *.bz2)            bunzip2 "$1" ;;
+    *.rar)            unrar x "$1" ;;
+    *.gz)             gunzip "$1" ;;
+    *.tar)            tar xf "$1" ;;
+    *.zip)            unzip "$1" ;;
+    *.7z)             7z x "$1" ;;
+    *.tar.xz)         tar xf "$1" ;;
+    *.tar.zst)        unzstd "$1" ;;
+    *)                echo "'$1' cannot be extracted via ex()" ;;
+  esac
 }
 
-# Deactivates conda before running brew. 
-# Re-activates conda if it was active upon completion.
-
+# Deactivates Conda before running Brew
 brew() {
-    local conda_env="$CONDA_DEFAULT_ENV"
-    while [ "$CONDA_SHLVL" -gt 0  ]; do
-        conda deactivate
-    done
-    command brew $@
-    local brew_status=$?
-    [ -n "${conda_env:+x}" ] && conda activate "$conda_env"
-    return "$brew_status"
+    local conda_env="${CONDA_DEFAULT_ENV:-}"
+    while [ "$CONDA_SHLVL" -gt 0 ]; do conda deactivate; done
+    command brew "$@"
+    local status=$?
+    [[ -n "$conda_env" ]] && conda activate "$conda_env"
+    return $status
 }
 
-# }}}
+#### }}}
 
 #### {{{ Plugins
 
-# assumes github and slash separated plugin names
 github_plugins=(
   zsh-users/zsh-autosuggestions
   zsh-users/zsh-completions
   zsh-users/zsh-syntax-highlighting
   zsh-users/zsh-history-substring-search
- )
+)
 
-# clone the plugin from github if it doesn't exist
+# Clone missing plugins
 for plugin in $github_plugins; do
-  if [[ ! -d ${ZDOTDIR:-$HOME}/.zsh_plugins/$plugin ]]; then
-    mkdir -p ${ZDOTDIR:-$HOME}/.zsh_plugins/${plugin%/*}
-    git clone --depth 1 --recursive https://github.com/$plugin.git ${ZDOTDIR:-$HOME}/.zsh_plugins/$plugin
-  fi
+  plugin_dir="${ZDOTDIR:-$HOME}/.zsh_plugins/$plugin"
+  [[ ! -d "$plugin_dir" ]] && git clone --depth 1 --recursive "https://github.com/$plugin.git" "$plugin_dir"
+done
 
-# load the plugin
-for initscript in ${plugin#*/}.zsh ${plugin#*/}.plugin.zsh ${plugin#*/}.sh; do
-  if [[ -f ${ZDOTDIR:-$HOME}/.zsh_plugins/$plugin/$initscript ]]; then
-    source ${ZDOTDIR:-$HOME}/.zsh_plugins/$plugin/$initscript
-    break
-  fi
+# Load plugins
+for plugin in $github_plugins; do
+  for initscript in "${plugin#*/}.zsh" "${plugin#*/}.plugin.zsh" "${plugin#*/}.sh"; do
+    plugin_path="${ZDOTDIR:-$HOME}/.zsh_plugins/$plugin/$initscript"
+    [[ -f "$plugin_path" ]] && source "$plugin_path" && break
   done
 done
 
-# clean up
-unset github_plugins
-unset plugin
-unset initscript
-
-
-# keybindings for history search
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
-# for debian (if the above dont work)
-bindkey "$terminfo[kcuu1]" history-substring-search-up 
-bindkey "$terminfo[kcud1]" history-substring-search-down
+unset github_plugins plugin plugin_path initscript
 
 #### }}}
 
-#### Starship Prompt
-eval "$(starship init zsh)"
-
-##### Start-up Commands
-#simplefetch
-echo '
-▀█ █▀ █░█
-█▄ ▄█ █▀█
-' | lolcat
+#### {{{ Conda Initialization
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/krishnatejavedula/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$('/Users/krishnatejavedula/miniforge3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/Users/krishnatejavedula/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/Users/krishnatejavedula/miniconda3/etc/profile.d/conda.sh"
+    if [ -f "/Users/krishnatejavedula/miniforge3/etc/profile.d/conda.sh" ]; then
+        . "/Users/krishnatejavedula/miniforge3/etc/profile.d/conda.sh"
     else
-        export PATH="/Users/krishnatejavedula/miniconda3/bin:$PATH"
+        export PATH="/Users/krishnatejavedula/miniforge3/bin:$PATH"
     fi
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+
+#### }}}
+
+#### {{{ Starship Prompt
+
+eval "$(starship init zsh)"
+
+#### }}}
+
+#### {{{ Start-up Commands
+
+if [[ $- == *i* ]]; then
+    echo '
+▀█ █▀ █░█
+█▄ ▄█ █▀█
+' | lolcat
+fi
+
+#### }}}
 
