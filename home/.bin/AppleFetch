@@ -44,15 +44,13 @@ cat <<EOF
  ${bold}${red}▄▀█ ${orange}█▀█ ${yellow}█▀█ ${green}█░░ ${blue}█▀▀   ${violet}█▀ ${red}█ ${orange}█░░ ${yellow}█ ${green}█▀▀ ${blue}█▀█ ${violet}█▄░█
  ${bold}${red}█▀█ ${orange}█▀▀ ${yellow}█▀▀ ${green}█▄▄ ${blue}██▄   ${violet}▄█ ${red}█ ${orange}█▄▄ ${yellow}█ ${green}█▄▄ ${blue}█▄█ ${violet}█░▀█
 
- ${bold}${red}USER:      ${red}${user}
- ${bold}${orange}DISTRO:    ${orange}${distro}
- ${bold}${yellow}KERNEL:    ${yellow}${kernel}
- ${bold}${green}UPTIME:    ${green}${uptime}
- ${bold}${blue}${envtype}:        ${blue}${WM}
- ${bold}${violet}SHELL:     ${violet}${shell}
- ${bold}${red}CPU:       ${red}${cpu} (${cores} cores)
+ ${bold}${blue}USER:      ${blue}${user}
+ ${blue}DISTRO:    ${blue}${distro}
+ ${bold}${violet}KERNEL:    ${violet}${kernel}
+ ${violet}UPTIME:    ${violet}${uptime}
+ ${bold}${red}SHELL:     ${red}${shell}
+ ${red}CPU:       ${red}${cpu} (${cores} cores)
  ${bold}${orange}GPU:       ${orange}${gpu}
- ${bold}${green}RAM:       ${green}${ram_used} / ${ram_total}
- ${bold}${blue}PKGS:      ${blue}(${brew_packages}) Brew + (${app_packages}) Apps${reset}
+ ${green}PKGS:      ${green}(${brew_packages}) Brew + (${app_packages}) Apps${reset}
 
 EOF
